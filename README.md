@@ -1,6 +1,9 @@
 # R-WHILE_Quick_Start
 Dockerfile building a r-while environment using [r-while-web](https://github.com/yokoyama-lab/r-while-web/tree/master).
 
+## Prerequisites
+- [docker](https://www.docker.com)
+
 ## Usage
 1. Create `.env` in `./src` to copy `.env.example`.
 ```
@@ -9,9 +12,13 @@ cp ./src/.env.example ./src/.env
 
 2. Edit `.env` according to your environment.
 ```
-APP_URL=`your domain`
+APP_URL=<your domain>
 
-DB_HOST=`your domain`
+.
+.
+.
+
+DB_HOST=<your domain>
 ```
 
 3. Build an image from this Dockerfile.
