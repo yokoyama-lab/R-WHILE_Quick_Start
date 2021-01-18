@@ -12,7 +12,8 @@ RUN apt-get update \
     && usermod -d /home/www-data www-data 
 
 # sudo setting
-ADD sudoers /etc
+#ADD sudoers /etc
+RUN echo 'www-data  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # change user
 USER www-data
@@ -52,11 +53,13 @@ RUN echo 'export LANG=C.UTF-8' >> ./.bashrc \
     && eval $(opam env) \
     && sudo ln -s /home/www-data/.cabal/bin/bnfc /usr/local/bin/bnfc \
     && cd /home/www-data/laravel/R-WHILE/src \
-    && sudo make install 
+    && PATH=/home/www-data/.opam/default/bin:"$PATH" make \
+    && sudo make install
 
 # setting r-while-web
 RUN cp -r /home/www-data/laravel/R-WHILE/public/* /var/www/html \
     && cd /home/www-data/laravel/R-WHILE \
+    && /home/www-data/composer.phar update \
     && /home/www-data/composer.phar install \
     && php artisan key:generate \
     && php artisan config:clear \
